@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register - MSME Finance Platform</title>
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+  
+  <!-- PWA Meta Tags -->
+  <meta name="theme-color" content="#2563eb">
+  <link rel="manifest" href="manifest.json">
+  
+  <!-- Accessibility -->
+  <meta name="description" content="Register for MSME Finance Platform - Digital banking solution for Malaysian businesses">
+</head>
+<body>
+  <!-- Skip Links for Accessibility -->
+  <div class="skip-links">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+  </div>
+
+  <!-- ARIA Live Region for Announcements -->
+  <div id="live-region" class="sr-live-region" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Registration Screen -->
+  <div id="registration-screen" class="screen active">
+    <!-- Header -->
+    <div class="screen-header">
+      <button class="back-btn" onclick="window.history.back()" aria-label="Go back">
+        ←
+      </button>
+      <h1>Create Account</h1>
+      <button class="help-btn" onclick="showHelp()" aria-label="Help">?</button>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="registration-main">
+      <div class="container">
+        <!-- Progress Indicator -->
+        <div class="progress-indicator">
+          <div class="progress-bar">
+            <div class="progress-fill" id="registration-progress"></div>
+          </div>
+          <div class="progress-steps">
+            <div class="step active" id="step-1">1</div>
+            <div class="step" id="step-2">2</div>
+            <div class="step" id="step-3">3</div>
+          </div>
+          <div class="progress-labels">
+            <span class="step-label">Account Type</span>
+            <span class="step-label">Personal Details</span>
+            <span class="step-label">Security Setup</span>
+          </div>
+        </div>
+
+        <!-- Registration Form -->
+        <form id="registration-form" class="registration-form" novalidate>
+          
+          <!-- Step 1: Account Type Selection -->
+          <div class="registration-step active" id="registration-step-1">
+            <div class="step-header">
+              <h2>Choose Account Type</h2>
+              <p>Select the option that best describes you</p>
+              <div class="step-timer">
+                <span class="timer-icon">⏱️</span>
+                <span>1 minute</span>
+              </div>
+            </div>
+
+            <!-- User Type Selection -->
+            <div class="form-section">
+              <div class="user-type-selection">
+                <label class="user-type-option">
+                  <input type="radio" name="userType" value="individual" required>
+                  <div class="user-type-card">
+                    <div class="type-icon">👤</div>
+                    <div class="type-info">
+                      <h4>Individual/Freelancer</h4>
+                      <p>Personal account for freelancers and individual entrepreneurs</p>
+                      <ul class="type-features">
+                        <li>Personal invoicing</li>
+                        <li>Basic analytics</li>
+                        <li>Single bank account</li>
+                      </ul>
+                    </div>
+                  </div>
+                </label>
+                
+                <label class="user-type-option">
+                  <input type="radio" name="userType" value="business" required>
+                  <div class="user-type-card">
+                    <div class="type-icon">🏢</div>
+                    <div class="type-info">
+                      <h4>Business (MSME)</h4>
+                      <p>Business account for small and medium enterprises</p>
+                      <ul class="type-features">
+                        <li>Business invoicing with SST</li>
+                        <li>Advanced analytics</li>
+                        <li>Multiple bank accounts</li>
+                        <li>ESG features</li>
+                      </ul>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <div class="step-actions">
+              <button type="button" class="btn-primary btn-full" onclick="nextStep()">
+                Continue →
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Personal & Business Details -->
+          <div class="registration-step" id="registration-step-2">
+            <div class="step-header">
+              <h2 id="step2-title">Personal Details</h2>
+              <p id="step2-subtitle">Provide your information for account verification</p>
+              <div class="step-timer">
+                <span class="timer-icon">⏱️</span>
+                <span id="step2-time">2-3 minutes</span>
+              </div>
+            </div>
+
+            <!-- Personal Information -->
+            <div class="form-section">
+              <h3>Personal Information</h3>
+              
+              <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" required 
+                       placeholder="Enter your full name as per IC">
+                <div class="form-help">Enter your full name as it appears on your IC</div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="icNumber">IC Number *</label>
+                  <input type="text" id="icNumber" name="icNumber" required 
+                         placeholder="123456-78-9012"
+                         pattern="\d{6}-\d{2}-\d{4}">
+                  <div class="form-help">Format: 123456-78-9012</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="phoneNumber">Phone Number *</label>
+                  <input type="tel" id="phoneNumber" name="phoneNumber" required 
+                         placeholder="+60123456789"
+                         pattern="\+60\d{8,10}">
+                  <div class="form-help">Format: +60xxxxxxxxx</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required 
+                       placeholder="your.email@example.com">
+                <div class="form-help">We'll use this for important notifications</div>
+              </div>
+
+              <div class="form-group">
+                <label for="languagePreference">Language Preference *</label>
+                <select id="languagePreference" name="languagePreference" required>
+                  <option value="">Select Language</option>
+                  <option value="en">English</option>
+                  <option value="my">Bahasa Malaysia</option>
+                  <option value="zh">中文 (Chinese)</option>
+                  <option value="ta">தமிழ் (Tamil)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Business Information (Hidden by default) -->
+            <div class="form-section business-only hidden" id="business-section">
+              <h3>Business Information</h3>
+              
+              <div class="form-group">
+                <label for="businessName">Business Name *</label>
+                <input type="text" id="businessName" name="businessName" 
+                       placeholder="Enter your registered business name">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="ssmNumber">SSM Registration Number *</label>
+                  <input type="text" id="ssmNumber" name="ssmNumber" 
+                         placeholder="12345678-X"
+                         pattern="\d{8}-[A-Z]">
+                  <div class="form-help">Format: 12345678-X</div>
+                </div>
+
+                <div class="form-group">
+                  <label for="businessType">Business Type *</label>
+                  <select id="businessType" name="businessType">
+                    <option value="">Select Type</option>
+                    <option value="sole_proprietorship">Sole Proprietorship</option>
+                    <option value="sdn_bhd">Sdn Bhd</option>
+                    <option value="partnership">Partnership</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="industry">Industry *</label>
+                  <select id="industry" name="industry">
+                    <option value="">Select Industry</option>
+                    <option value="fnb">Food & Beverage</option>
+                    <option value="retail">Retail</option>
+                    <option value="services">Services</option>
+                    <option value="manufacturing">Manufacturing</option>
+                    <option value="technology">Technology</option>
+                    <option value="healthcare">Healthcare</option>
+                    <option value="education">Education</option>
+                    <option value="others">Others</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="primaryBank">Primary Bank *</label>
+                  <select id="primaryBank" name="primaryBank">
+                    <option value="">Select Your Bank</option>
+                    <option value="maybank">Maybank</option>
+                    <option value="cimb">CIMB Bank</option>
+                    <option value="rhb">RHB Bank</option>
+                    <option value="public_bank">Public Bank</option>
+                    <option value="hong_leong">Hong Leong Bank</option>
+                    <option value="ambank">AmBank</option>
+                    <option value="uob">UOB Malaysia</option>
+                    <option value="ocbc">OCBC Bank</option>
+                    <option value="standard_chartered">Standard Chartered</option>
+                    <option value="bsn">Bank Simpanan Nasional</option>
+                    <option value="others">Others</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="businessAddress">Business Address *</label>
+                <textarea id="businessAddress" name="businessAddress" rows="3" 
+                          placeholder="Enter complete business address"></textarea>
+              </div>
+            </div>
+
+            <!-- Individual-specific fields -->
+            <div class="form-section individual-only hidden" id="individual-section">
+              <h3>Banking Details</h3>
+              
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="individualBank">Primary Bank *</label>
+                  <select id="individualBank" name="individualBank">
+                    <option value="">Select Your Bank</option>
+                    <option value="maybank">Maybank</option>
+                    <option value="cimb">CIMB Bank</option>
+                    <option value="rhb">RHB Bank</option>
+                    <option value="public_bank">Public Bank</option>
+                    <option value="hong_leong">Hong Leong Bank</option>
+                    <option value="ambank">AmBank</option>
+                    <option value="uob">UOB Malaysia</option>
+                    <option value="ocbc">OCBC Bank</option>
+                    <option value="standard_chartered">Standard Chartered</option>
+                    <option value="bsn">Bank Simpanan Nasional</option>
+                    <option value="others">Others</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="accountType">Account Type *</label>
+                  <select id="accountType" name="accountType">
+                    <option value="">Select Type</option>
+                    <option value="savings">Savings Account</option>
+                    <option value="current">Current Account</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="step-actions">
+              <button type="button" class="btn-secondary" onclick="prevStep()">
+                ← Back
+              </button>
+              <button type="button" class="btn-primary" onclick="nextStep()">
+                Continue →
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Security Setup -->
+          <div class="registration-step" id="registration-step-3">
+            <div class="step-header">
+              <h2>Security & Preferences</h2>
+              <p>Set up your security and accessibility preferences</p>
+              <div class="step-timer">
+                <span class="timer-icon">⏱️</span>
+                <span>2 minutes</span>
+              </div>
+            </div>
+
+            <!-- Security Setup -->
+            <div class="form-section">
+              <h3>Security Setup</h3>
+              
+              <div class="form-group">
+                <label for="password">Password *</label>
+                <div class="password-input">
+                  <input type="password" id="password" name="password" required 
+                         minlength="8"
+                         placeholder="Minimum 8 characters">
+                  <button type="button" class="password-toggle" onclick="togglePassword('password')" 
+                          aria-label="Toggle password visibility">👁️</button>
+                </div>
+                <div class="form-help">Use a mix of letters, numbers, and symbols</div>
+              </div>
+
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password *</label>
+                <div class="password-input">
+                  <input type="password" id="confirmPassword" name="confirmPassword" required 
+                         minlength="8"
+                         placeholder="Re-enter your password">
+                  <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')" 
+                          aria-label="Toggle password visibility">👁️</button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="securityPin">6-Digit Security PIN *</label>
+                <input type="password" id="securityPin" name="securityPin" required 
+                       pattern="\d{6}" maxlength="6"
+                       placeholder="123456">
+                <div class="form-help">Used for quick access and transaction verification</div>
+              </div>
+            </div>
+
+            <!-- Accessibility Preferences -->
+            <div class="form-section">
+              <h3>Accessibility Preferences (Optional)</h3>
+              
+              <div class="accessibility-grid">
+                <label class="toggle-option">
+                  <input type="checkbox" id="elderlyMode" name="elderlyMode">
+                  <div class="toggle-card">
+                    <div class="toggle-icon">👴</div>
+                    <div class="toggle-info">
+                      <h4>Elderly-Friendly Mode</h4>
+                      <p>Larger fonts and simplified interface</p>
+                    </div>
+                    <div class="toggle-switch">
+                      <span class="slider"></span>
+                    </div>
+                  </div>
+                </label>
+
+                <label class="toggle-option">
+                  <input type="checkbox" id="voiceFeedback" name="voiceFeedback">
+                  <div class="toggle-card">
+                    <div class="toggle-icon">🔊</div>
+                    <div class="toggle-info">
+                      <h4>Voice Feedback</h4>
+                      <p>Text-to-speech assistance</p>
+                    </div>
+                    <div class="toggle-switch">
+                      <span class="slider"></span>
+                    </div>
+                  </div>
+                </label>
+
+                <label class="toggle-option">
+                  <input type="checkbox" id="highContrast" name="highContrast">
+                  <div class="toggle-card">
+                    <div class="toggle-icon">🌓</div>
+                    <div class="toggle-info">
+                      <h4>High Contrast Mode</h4>
+                      <p>Enhanced visibility</p>
+                    </div>
+                    <div class="toggle-switch">
+                      <span class="slider"></span>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="form-section">
+              <div class="terms-section">
+                <label class="checkbox-label">
+                  <input type="checkbox" id="agreeTerms" name="agreeTerms" required>
+                  <span class="checkmark"></span>
+                  <span class="terms-text">
+                    I agree to the <a href="#" onclick="showTerms()">Terms and Conditions</a> 
+                    and <a href="#" onclick="showPrivacy()">Privacy Policy</a> *
+                  </span>
+                </label>
+                
+                <label class="checkbox-label">
+                  <input type="checkbox" id="agreeMarketing" name="agreeMarketing">
+                  <span class="checkmark"></span>
+                  <span class="terms-text">
+                    I agree to receive marketing communications and newsletters
+                  </span>
+                </label>
+              </div>
+            </div>
+
+            <div class="step-actions">
+              <button type="button" class="btn-secondary" onclick="prevStep()">
+                ← Back
+              </button>
+              <button type="submit" class="btn-primary" id="submit-registration">
+                Create Account
+              </button>
+            </div>
+          </div>
+        </form>
+
+        <!-- Demo Data Button -->
+        <div class="demo-section">
+          <p class="demo-text">🚀 Want to test quickly?</p>
+          <button type="button" class="btn-tertiary" onclick="fillDemoData()">
+            Fill Demo Data
+          </button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Success Modal -->
+  <div id="success-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Registration Successful! 🎉</h2>
+      </div>
+      <div class="modal-body">
+        <div class="success-animation">
+          <div class="success-icon">✅</div>
+        </div>
+        <p><strong>Welcome to MSME Finance Platform!</strong></p>
+        <p>Your account has been created successfully. You can now start using our financial tools.</p>
+        
+        <div class="next-steps">
+          <h3>What's Next?</h3>
+          <ul>
+            <li>✅ Account created successfully</li>
+            <li>📧 Check your email for verification</li>
+            <li>🏦 Connect your bank accounts</li>
+            <li>📄 Create your first invoice</li>
+          </ul>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" onclick="redirectToLogin()">
+          Go to Login
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help Modal -->
+  <div id="help-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Registration Help</h2>
+        <button class="close-btn" onclick="closeModal('help-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="help-section">
+          <h3>🕐 Quick Registration: 3-5 minutes</h3>
+          
+          <div class="help-steps">
+            <div class="help-step">
+              <div class="step-number">1</div>
+              <div class="step-content">
+                <h4>Choose Account Type</h4>
+                <p>Select Individual for personal use or Business for MSME features</p>
+                <ul>
+                  <li><strong>Individual:</strong> Basic invoicing, single bank account</li>
+                  <li><strong>Business:</strong> SST invoicing, multiple accounts, ESG features</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="help-step">
+              <div class="step-number">2</div>
+              <div class="step-content">
+                <h4>Personal & Business Details</h4>
+                <p>Provide accurate information for account verification</p>
+                <ul>
+                  <li>IC number format: 123456-78-9012</li>
+                  <li>Phone format: +60xxxxxxxxx</li>
+                  <li>Business users need SSM number: 12345678-X</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div class="help-step">
+              <div class="step-number">3</div>
+              <div class="step-content">
+                <h4>Security & Preferences</h4>
+                <p>Create secure credentials and set accessibility options</p>
+                <ul>
+                  <li>Strong password (min 8 characters)</li>
+                  <li>6-digit PIN for quick access</li>
+                  <li>Optional accessibility features</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="contact-support">
+            <h4>Need Help?</h4>
+            <p>📞 Call: 1-300-88-MSME (6763)</p>
+            <p>📧 Email: support@msme.my</p>
+            <p>💬 Live Chat: Available 9 AM - 6 PM</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="data/mock-data.js"></script>
+  <script>
+    // Registration Form Controller
+    class RegistrationController {
+      constructor() {
+        this.currentStep = 1;
+        this.totalSteps = 3;
+        this.formData = {};
+        this.validation = {
+          icNumber: /^\d{6}-\d{2}-\d{4}$/,
+          phone: /^\+60\d{8,10}$/,
+          email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+          ssmNumber: /^\d{8}-[A-Z]$/
+        };
+        
+        this.init();
+      }
+
+      init() {
+        this.setupEventListeners();
+        this.updateProgress();
+        this.setupFormValidation();
+      }
+
+      setupEventListeners() {
+        // User type change
+        document.querySelectorAll('input[name="userType"]').forEach(radio => {
+          radio.addEventListener('change', (e) => {
+            this.toggleAccountTypeFields(e.target.value);
+          });
+        });
+
+        // Form submission
+        document.getElementById('registration-form').addEventListener('submit', (e) => {
+          e.preventDefault();
+          this.submitRegistration();
+        });
+
+        // Real-time validation
+        const inputs = document.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+          input.addEventListener('blur', () => this.validateField(input));
+          input.addEventListener('input', () => this.clearFieldError(input));
+        });
+
+        // Accessibility toggles
+        document.querySelectorAll('.toggle-option input[type="checkbox"]').forEach(toggle => {
+          toggle.addEventListener('change', (e) => {
+            this.handleAccessibilityToggle(e.target.id, e.target.checked);
+          });
+        });
+      }
+
+      setupFormValidation() {
+        // Password matching
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        
+        confirmPassword.addEventListener('input', () => {
+          if (confirmPassword.value && password.value !== confirmPassword.value) {
+            this.showFieldError(confirmPassword, 'Passwords do not match');
+          } else {
+            this.clearFieldError(confirmPassword);
+          }
+        });
+      }
+
+      toggleAccountTypeFields(userType) {
+        const businessFields = document.querySelectorAll('.business-only');
+        const individualFields = document.querySelectorAll('.individual-only');
+        
+        // Update step 2 header
+        const title = document.getElementById('step2-title');
+        const subtitle = document.getElementById('step2-subtitle');
+        const time = document.getElementById('step2-time');
+        
+        if (userType === 'business') {
+          // Show business fields, hide individual fields
+          businessFields.forEach(field => {
+            field.classList.remove('hidden');
+            field.querySelectorAll('input, select, textarea').forEach(input => {
+              input.setAttribute('required', 'required');
+            });
+          });
+          individualFields.forEach(field => {
+            field.classList.add('hidden');
+            field.querySelectorAll('input, select, textarea').forEach(input => {
+              input.removeAttribute('required');
+            });
+          });
+          
+          title.textContent = 'Personal & Business Details';
+          subtitle.textContent = 'Provide your personal and business information';
+          time.textContent = '3-4 minutes';
+        } else if (userType === 'individual') {
+          // Show individual fields, hide business fields
+          individualFields.forEach(field => {
+            field.classList.remove('hidden');
+            field.querySelectorAll('input, select, textarea').forEach(input => {
+              input.setAttribute('required', 'required');
+            });
+          });
+          businessFields.forEach(field => {
+            field.classList.add('hidden');
+            field.querySelectorAll('input, select, textarea').forEach(input => {
+              input.removeAttribute('required');
+            });
+          });
+          
+          title.textContent = 'Personal Details';
+          subtitle.textContent = 'Provide your personal information';
+          time.textContent = '2-3 minutes';
+        }
+      }
+
+      validateField(field) {
+        // Handle radio button groups differently
+        if (field.type === 'radio') {
+          const radioGroup = document.querySelectorAll(`input[name="${field.name}"]`);
+          const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+          
+          this.clearFieldError(field);
+          
+          if (field.hasAttribute('required') && !isChecked) {
+            this.showFieldError(field, `${this.formatFieldName(field.name)} is required`);
+            return false;
+          }
+          
+          return true;
+        }
+        
+        // Handle other field types
+        const value = field.value.trim();
+        const fieldName = field.name;
+        
+        this.clearFieldError(field);
+        
+        // Required field validation
+        if (field.hasAttribute('required') && !value) {
+          this.showFieldError(field, `${this.formatFieldName(fieldName)} is required`);
+          return false;
+        }
+        
+        if (!value) return true; // Skip validation for empty optional fields
+        
+        // Pattern validation
+        if (field.pattern && !new RegExp(field.pattern).test(value)) {
+          this.showFieldError(field, `Invalid ${this.formatFieldName(fieldName)} format`);
+          return false;
+        }
+        
+        // Custom validation
+        switch (fieldName) {
+          case 'icNumber':
+            if (!this.validation.icNumber.test(value)) {
+              this.showFieldError(field, 'IC Number format: 123456-78-9012');
+              return false;
+            }
+            break;
+          case 'phoneNumber':
+            if (!this.validation.phone.test(value)) {
+              this.showFieldError(field, 'Phone format: +60xxxxxxxxx');
+              return false;
+            }
+            break;
+          case 'email':
+            if (!this.validation.email.test(value)) {
+              this.showFieldError(field, 'Please enter a valid email address');
+              return false;
+            }
+            break;
+          case 'ssmNumber':
+            if (!this.validation.ssmNumber.test(value)) {
+              this.showFieldError(field, 'SSM Number format: 12345678-X');
+              return false;
+            }
+            break;
+          case 'securityPin':
+            if (!/^\d{6}$/.test(value)) {
+              this.showFieldError(field, 'PIN must be exactly 6 digits');
+              return false;
+            }
+            break;
+        }
+        
+        return true;
+      }
+
+      showFieldError(field, message) {
+        // For radio buttons, show error on the container
+        if (field.type === 'radio') {
+          const container = field.closest('.user-type-selection') || field.closest('.form-section');
+          container.classList.add('error');
+          
+          let errorEl = container.querySelector('.error-message');
+          if (!errorEl) {
+            errorEl = document.createElement('div');
+            errorEl.className = 'error-message';
+            container.appendChild(errorEl);
+          }
+          errorEl.textContent = message;
+          return;
+        }
+        
+        // For other fields, show error normally
+        field.classList.add('error');
+        field.closest('.form-group').classList.add('error');
+        
+        let errorEl = field.closest('.form-group').querySelector('.error-message');
+        if (!errorEl) {
+          errorEl = document.createElement('div');
+          errorEl.className = 'error-message';
+          field.closest('.form-group').appendChild(errorEl);
+        }
+        errorEl.textContent = message;
+      }
+
+      clearFieldError(field) {
+        // For radio buttons, clear error on the container
+        if (field.type === 'radio') {
+          const container = field.closest('.user-type-selection') || field.closest('.form-section');
+          container.classList.remove('error');
+          const errorEl = container.querySelector('.error-message');
+          if (errorEl) {
+            errorEl.remove();
+          }
+          return;
+        }
+        
+        // For other fields, clear error normally
+        field.classList.remove('error');
+        field.closest('.form-group').classList.remove('error');
+        const errorEl = field.closest('.form-group').querySelector('.error-message');
+        if (errorEl) {
+          errorEl.remove();
+        }
+      }
+
+      formatFieldName(name) {
+        return name.replace(/([A-Z])/g, ' $1')
+                  .replace(/^./, str => str.toUpperCase())
+                  .toLowerCase()
+                  .replace(/\b\w/g, l => l.toUpperCase());
+      }
+
+      validateStep(step) {
+        const stepElement = document.getElementById(`registration-step-${step}`);
+        const requiredFields = stepElement.querySelectorAll('[required]:not(.hidden [required])');
+        let isValid = true;
+        
+        // Collect unique radio groups to avoid validating the same group multiple times
+        const radioGroups = new Set();
+        const otherFields = [];
+        
+        requiredFields.forEach(field => {
+          if (field.type === 'radio') {
+            radioGroups.add(field.name);
+          } else {
+            otherFields.push(field);
+          }
+        });
+        
+        // Validate radio groups
+        radioGroups.forEach(groupName => {
+          const firstRadio = stepElement.querySelector(`input[name="${groupName}"]`);
+          if (firstRadio && !this.validateField(firstRadio)) {
+            isValid = false;
+          }
+        });
+        
+        // Validate other fields
+        otherFields.forEach(field => {
+          if (!this.validateField(field)) {
+            isValid = false;
+          }
+        });
+        
+        // Step-specific validation
+        if (step === 3) {
+          // Check password match
+          const password = document.getElementById('password').value;
+          const confirmPassword = document.getElementById('confirmPassword').value;
+          if (password !== confirmPassword) {
+            this.showFieldError(document.getElementById('confirmPassword'), 'Passwords do not match');
+            isValid = false;
+          }
+        }
+        
+        return isValid;
+      }
+
+      nextStep() {
+        if (!this.validateStep(this.currentStep)) {
+          this.announce('Please fix the errors before continuing');
+          return;
+        }
+        
+        if (this.currentStep < this.totalSteps) {
+          this.currentStep++;
+          this.showStep(this.currentStep);
+          this.updateProgress();
+          this.announce(`Step ${this.currentStep} of ${this.totalSteps}`);
+        }
+      }
+
+      prevStep() {
+        if (this.currentStep > 1) {
+          this.currentStep--;
+          this.showStep(this.currentStep);
+          this.updateProgress();
+          this.announce(`Step ${this.currentStep} of ${this.totalSteps}`);
+        }
+      }
+
+      showStep(step) {
+        // Hide all steps
+        document.querySelectorAll('.registration-step').forEach(stepEl => {
+          stepEl.classList.remove('active');
+        });
+        
+        // Show current step
+        document.getElementById(`registration-step-${step}`).classList.add('active');
+        
+        // Update step indicators
+        document.querySelectorAll('.step').forEach((stepIndicator, index) => {
+          stepIndicator.classList.remove('active', 'completed');
+          if (index + 1 < step) {
+            stepIndicator.classList.add('completed');
+          } else if (index + 1 === step) {
+            stepIndicator.classList.add('active');
+          }
+        });
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      updateProgress() {
+        const progress = (this.currentStep / this.totalSteps) * 100;
+        document.getElementById('registration-progress').style.width = `${progress}%`;
+      }
+
+      handleAccessibilityToggle(setting, enabled) {
+        switch (setting) {
+          case 'elderlyMode':
+            if (enabled) {
+              document.body.classList.add('elderly-mode');
+              this.speak('Elderly-friendly mode enabled');
+            } else {
+              document.body.classList.remove('elderly-mode');
+            }
+            break;
+          case 'highContrast':
+            if (enabled) {
+              document.body.classList.add('high-contrast');
+              this.speak('High contrast mode enabled');
+            } else {
+              document.body.classList.remove('high-contrast');
+            }
+            break;
+          case 'voiceFeedback':
+            if (enabled) {
+              this.speak('Voice feedback enabled');
+            }
+            break;
+        }
+      }
+
+      submitRegistration() {
+        if (!this.validateStep(3)) {
+          this.announce('Please fix all errors before submitting');
+          return;
+        }
+
+        const submitBtn = document.getElementById('submit-registration');
+        submitBtn.textContent = 'Creating Account...';
+        submitBtn.disabled = true;
+
+        // Collect form data
+        const formData = new FormData(document.getElementById('registration-form'));
+        this.formData = Object.fromEntries(formData.entries());
+
+        // Simulate registration process
+        setTimeout(() => {
+          this.completeRegistration();
+        }, 2000);
+      }
+
+      completeRegistration() {
+        // Show success modal
+        document.getElementById('success-modal').classList.add('active');
+        
+        // Save to localStorage (simulation)
+        try {
+          localStorage.setItem('msme-registration-data', JSON.stringify(this.formData));
+        } catch (error) {
+          console.warn('Failed to save registration data:', error);
+        }
+        
+        this.announce('Registration completed successfully');
+        this.speak('Account created successfully. Welcome to MSME Finance Platform!');
+      }
+
+      announce(message) {
+        const liveRegion = document.getElementById('live-region');
+        liveRegion.textContent = message;
+      }
+
+      speak(text) {
+        if ('speechSynthesis' in window) {
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.rate = 0.8;
+          speechSynthesis.speak(utterance);
+        }
+      }
+    }
+
+    // Demo data
+    const demoUser = {
+      fullName: "Ahmad bin Abdullah",
+      icNumber: "850123-05-1234",
+      phoneNumber: "+60123456789",
+      email: "ahmad@bakery.com",
+      languagePreference: "en",
+      userType: "business",
+      businessName: "Ahmad Bakery Sdn Bhd",
+      ssmNumber: "12345678-X",
+      businessType: "sdn_bhd",
+      industry: "fnb",
+      businessAddress: "No. 15, Jalan Usahawan 2, Taman Perindustrian Subang, 47500 Subang Jaya, Selangor",
+      primaryBank: "maybank",
+      password: "SecurePass123!",
+      confirmPassword: "SecurePass123!",
+      securityPin: "123456",
+      agreeTerms: true
+    };
+
+    // Global functions
+    function nextStep() {
+      registrationController.nextStep();
+    }
+
+    function prevStep() {
+      registrationController.prevStep();
+    }
+
+    function fillDemoData() {
+      Object.keys(demoUser).forEach(key => {
+        const field = document.getElementById(key) || document.querySelector(`[name="${key}"]`);
+        if (field) {
+          if (field.type === 'checkbox' || field.type === 'radio') {
+            field.checked = demoUser[key];
+            if (field.type === 'radio' && field.checked) {
+              field.dispatchEvent(new Event('change'));
+            }
+          } else {
+            field.value = demoUser[key];
+          }
+        }
+      });
+      
+      registrationController.announce('Demo data filled');
+    }
+
+    function togglePassword(fieldId) {
+      const field = document.getElementById(fieldId);
+      const toggle = field.nextElementSibling;
+      
+      if (field.type === 'password') {
+        field.type = 'text';
+        toggle.textContent = '🙈';
+        toggle.setAttribute('aria-label', 'Hide password');
+      } else {
+        field.type = 'password';
+        toggle.textContent = '👁️';
+        toggle.setAttribute('aria-label', 'Show password');
+      }
+    }
+
+    function showHelp() {
+      document.getElementById('help-modal').classList.add('active');
+    }
+
+    function showTerms() {
+      alert('Terms and Conditions would open here');
+    }
+
+    function showPrivacy() {
+      alert('Privacy Policy would open here');
+    }
+
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('active');
+    }
+
+    function redirectToLogin() {
+      window.location.href = 'index.html';
+    }
+
+    // Initialize registration controller
+    let registrationController;
+    document.addEventListener('DOMContentLoaded', () => {
+      registrationController = new RegistrationController();
+    });
+  </script>
+
+  <style>
+    /* Registration-specific styles */
+    .registration-main {
+      padding: var(--spacing-4) 0 var(--spacing-8);
+      min-height: calc(100vh - 80px);
+    }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      margin-top: var(--spacing-2);
+    }
+
+    .step-label {
+      font-size: var(--font-size-xs);
+      color: var(--text-secondary);
+      text-align: center;
+      flex: 1;
+    }
+
+    .registration-form {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .registration-step {
+      display: none;
+    }
+
+    .registration-step.active {
+      display: block;
+      animation: fadeIn 0.3s ease-out;
+    }
+
+    .step-header {
+      text-align: center;
+      margin-bottom: var(--spacing-6);
+      padding-bottom: var(--spacing-4);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .step-timer {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--spacing-2);
+      background-color: var(--bg-secondary);
+      padding: var(--spacing-2) var(--spacing-4);
+      border-radius: var(--radius-full);
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+      margin-top: var(--spacing-3);
+    }
+
+    .form-section {
+      margin-bottom: var(--spacing-6);
+    }
+
+    .form-section h3 {
+      margin-bottom: var(--spacing-4);
+      padding-bottom: var(--spacing-2);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .user-type-selection {
+      display: grid;
+      gap: var(--spacing-4);
+    }
+
+    .user-type-option input {
+      display: none;
+    }
+
+    .user-type-card {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-4);
+      padding: var(--spacing-5);
+      border: 2px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-align: left;
+    }
+
+    .user-type-option input:checked + .user-type-card {
+      border-color: var(--primary-blue);
+      background-color: rgba(37, 99, 235, 0.05);
+    }
+
+    .type-icon {
+      font-size: var(--font-size-2xl);
+      margin-top: var(--spacing-1);
+    }
+
+    .type-info {
+      flex: 1;
+    }
+
+    .type-info h4 {
+      margin-bottom: var(--spacing-1);
+    }
+
+    .type-info p {
+      color: var(--text-secondary);
+      font-size: var(--font-size-sm);
+      margin-bottom: var(--spacing-3);
+    }
+
+    .type-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .type-features li {
+      font-size: var(--font-size-sm);
+      color: var(--text-secondary);
+      padding: var(--spacing-1) 0;
+      position: relative;
+      padding-left: var(--spacing-4);
+    }
+
+    .type-features li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--secondary-green);
+      font-weight: 600;
+    }
+
+    .form-help {
+      font-size: var(--font-size-xs);
+      color: var(--text-tertiary);
+      margin-top: var(--spacing-1);
+    }
+
+    .password-input {
+      position: relative;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: var(--spacing-3);
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: var(--font-size-base);
+      padding: var(--spacing-1);
+    }
+
+    .accessibility-grid {
+      display: grid;
+      gap: var(--spacing-3);
+    }
+
+    .toggle-option input {
+      display: none;
+    }
+
+    .toggle-card {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-3);
+      padding: var(--spacing-3);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .toggle-option input:checked + .toggle-card {
+      border-color: var(--primary-blue);
+      background-color: rgba(37, 99, 235, 0.05);
+    }
+
+    .toggle-icon {
+      font-size: var(--font-size-lg);
+    }
+
+    .toggle-info {
+      flex: 1;
+    }
+
+    .toggle-info h4 {
+      margin-bottom: var(--spacing-1);
+      font-size: var(--font-size-sm);
+    }
+
+    .toggle-info p {
+      color: var(--text-secondary);
+      font-size: var(--font-size-xs);
+      margin: 0;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 40px;
+      height: 20px;
+      background-color: var(--gray-300);
+      border-radius: var(--radius-full);
+      transition: background-color var(--transition-fast);
+    }
+
+    .toggle-option input:checked + .toggle-card .toggle-switch {
+      background-color: var(--primary-blue);
+    }
+
+    .slider {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background-color: white;
+      border-radius: var(--radius-full);
+      transition: transform var(--transition-fast);
+    }
+
+    .toggle-option input:checked + .toggle-card .slider {
+      transform: translateX(20px);
+    }
+
+    .terms-section {
+      padding: var(--spacing-4);
+      background-color: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--spacing-3);
+      margin-bottom: var(--spacing-3);
+      cursor: pointer;
+    }
+
+    .checkbox-label:last-child {
+      margin-bottom: 0;
+    }
+
+    .checkmark {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--border-medium);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--font-size-xs);
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .checkbox-label input:checked + .checkmark {
+      background-color: var(--primary-blue);
+      border-color: var(--primary-blue);
+      color: var(--text-inverse);
+    }
+
+    .checkbox-label input:checked + .checkmark::after {
+      content: '✓';
+    }
+
+    .terms-text {
+      font-size: var(--font-size-sm);
+      line-height: 1.5;
+    }
+
+    .terms-text a {
+      color: var(--primary-blue);
+      text-decoration: underline;
+    }
+
+    .step-actions {
+      display: flex;
+      gap: var(--spacing-3);
+      justify-content: space-between;
+      margin-top: var(--spacing-6);
+      padding-top: var(--spacing-4);
+      border-top: 1px solid var(--border-light);
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    .demo-section {
+      text-align: center;
+      margin-top: var(--spacing-6);
+      padding: var(--spacing-4);
+      background-color: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+    }
+
+    .demo-text {
+      margin-bottom: var(--spacing-3);
+      color: var(--text-secondary);
+      font-size: var(--font-size-sm);
+    }
+
+    .success-animation {
+      text-align: center;
+      margin-bottom: var(--spacing-4);
+    }
+
+    .success-icon {
+      font-size: 3rem;
+      animation: bounce 0.6s ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-10px); }
+      60% { transform: translateY(-5px); }
+    }
+
+    .next-steps {
+      margin-top: var(--spacing-4);
+      padding: var(--spacing-3);
+      background-color: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+    }
+
+    .next-steps h3 {
+      margin-bottom: var(--spacing-3);
+      font-size: var(--font-size-base);
+    }
+
+    .next-steps ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .next-steps li {
+      padding: var(--spacing-1) 0;
+      font-size: var(--font-size-sm);
+    }
+
+    .help-steps {
+      margin: var(--spacing-4) 0;
+    }
+
+    .help-step {
+      display: flex;
+      gap: var(--spacing-3);
+      margin-bottom: var(--spacing-4);
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      background-color: var(--primary-blue);
+      color: var(--text-inverse);
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      flex-shrink: 0;
+      font-size: var(--font-size-sm);
+    }
+
+    .step-content h4 {
+      margin-bottom: var(--spacing-2);
+      font-size: var(--font-size-base);
+    }
+
+    .step-content p {
+      margin-bottom: var(--spacing-2);
+      font-size: var(--font-size-sm);
+    }
+
+    .step-content ul {
+      list-style: disc;
+      padding-left: var(--spacing-4);
+      margin: 0;
+    }
+
+    .step-content li {
+      margin-bottom: var(--spacing-1);
+      font-size: var(--font-size-sm);
+    }
+
+    .contact-support {
+      margin-top: var(--spacing-4);
+      padding: var(--spacing-3);
+      background-color: var(--bg-secondary);
+      border-radius: var(--radius-lg);
+    }
+
+    .contact-support h4 {
+      margin-bottom: var(--spacing-2);
+      font-size: var(--font-size-base);
+    }
+
+    .contact-support p {
+      margin-bottom: var(--spacing-1);
+      font-size: var(--font-size-sm);
+    }
+
+    /* Hidden state */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Error states */
+    .form-group.error input,
+    .form-group.error select,
+    .form-group.error textarea {
+      border-color: var(--error);
+      border-width: 2px;
+    }
+
+    .user-type-selection.error .user-type-card {
+      border-color: var(--error);
+      border-width: 2px;
+    }
+
+    .error-message {
+      color: var(--error);
+      font-size: var(--font-size-xs);
+      margin-top: var(--spacing-1);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-1);
+    }
+
+    .error-message::before {
+      content: '⚠️';
+      font-size: var(--font-size-sm);
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .registration-main {
+        padding: var(--spacing-3) 0 var(--spacing-6);
+      }
+      
+      .container {
+        padding: 0 var(--spacing-3);
+      }
+      
+      .user-type-card {
+        padding: var(--spacing-4);
+      }
+      
+      .type-features {
+        display: none;
+      }
+      
+      .step-actions {
+        flex-direction: column;
+      }
+      
+      .step-actions .btn-secondary {
+        order: 2;
+      }
+      
+      .step-actions .btn-primary {
+        order: 1;
+      }
+      
+      .help-step {
+        flex-direction: column;
+      }
+      
+      .step-number {
+        align-self: flex-start;
+      }
+      
+      .form-row {
+        flex-direction: column;
+      }
+      
+      .accessibility-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Touch device optimizations */
+    @media (pointer: coarse) {
+      .user-type-card {
+        min-height: 80px;
+      }
+      
+      .toggle-card {
+        min-height: 60px;
+        padding: var(--spacing-4);
+      }
+      
+      .checkbox-label {
+        min-height: 44px;
+        align-items: center;
+      }
+      
+      .password-toggle {
+        min-width: 44px;
+        min-height: 44px;
+      }
+    }
+
+    /* Elderly mode adjustments */
+    .elderly-mode .user-type-card {
+      padding: var(--spacing-6);
+    }
+    
+    .elderly-mode .type-features {
+      display: block;
+    }
+    
+    .elderly-mode .toggle-card {
+      padding: var(--spacing-5);
+    }
+    
+    .elderly-mode .step-timer {
+      font-size: var(--font-size-base);
+    }
+  </style>
+</body>
+</html> 
